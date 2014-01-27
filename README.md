@@ -11,4 +11,8 @@ http://www.rebol.com/r3/downloads.html
 
 ## markdown 转 mobi
 
+需要安装[calibre](http://www.calibre-ebook.com/)
+
 ``rebol dzs2mobi.reb "writer book a.md a.mobi"``
+
+windows下要把calibre的安装目录加入PATH环境变量
