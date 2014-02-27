@@ -111,9 +111,9 @@ md_src: set_dzs_fname writer book src "md"
 md_file: to-rebol-file md_src
 write md_file md
 
-to_mobi: equal? dst_type "mobi"
-if to_mobi [
-mobi_dst: set_dzs_fname writer book src "mobi"
+to_other: not-equal? dst_type "md"
+if to_other [
+mobi_dst: set_dzs_fname writer book src dst_type
 write_mobi writer book md_src mobi_dst
 ]
 
