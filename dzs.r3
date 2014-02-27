@@ -4,7 +4,7 @@ Author: "abbypan"
 ]
 
 get_title_parser: func [] [
-spacer: charset reduce [tab newline #" " ]
+spacer: charset reduce [tab newline #" " "　"]
 sep_not_spacer: charset [ 
 "(" ")" "[" "]" 
 "【" "】" "（" "）"
@@ -25,7 +25,7 @@ digit: charset reduce [
 "○〇"]
 digits: [ some digit ]
 
-head_n: [ "第" | "卷" ]
+head_n: [ "第" | "卷" | "CHAPTER" ]
 head_s: [ "内容简介" | "文案" | "序" |  "序言" | 
 "楔子" | "正文" | "终章" |"尾声" | "番外" | 
 "后记" ]
@@ -33,14 +33,27 @@ head_main: [ 0 1 head_n seps digits | head_s seps any digits ]
 
 tail_u: [ "章" | "节" | "卷" | "回" | "部" | "折" ]
 suffix: [ "上" | "中" | "下" ]
-tail_main: [    seps 0 1 tail_u seps 0 1 suffix  ]
+tail_m: [ seps 0 1 tail_u ]
+tail_n: [ some sep suffix | seps ]
+tail_main: [ tail_m tail_n ]
 
-n_title: [ seps head_main tail_main to end ] 
-s_title: [ thru  sep_not_spacer_block  
+;chapter 1 xxxx
+title_cix: [ seps head_n seps digits some sep to end ]
+
+;第1章 xxx , 第一章 （上）xxx
+title_cisx: [ seps head_main tail_main some sep to end ] 
+
+;第1章
+title_cis: [ seps head_main tail_main end ] 
+
+;序言 xxx
+title_sx: [ thru  sep_not_spacer_block  
 some digit 
 sep_not_spacer_block to end ]
-main_title: [ n_title | s_title ]
 
+main_title: [ title_cix | title_cis | title_cisx | title_sx ]
+
+;print parse "chapter 44 abcd" main_title
 ;print parse "第廿十1章 程序" main_title
 ;print parse "卷五" main_title
 ;print parse "第30章(大结局)" main_title
@@ -57,7 +70,12 @@ main_title: [ n_title | s_title ]
 return main_title
 ]
 
-write_dzs: func [ writer book src dst ] [
+write_mobi: func [ writer book src dst ] [
+    cmd: reform ["ebook-convert" src dst "--authors" writer "--title" book]
+    call cmd
+]
+
+write_dzs: func [ writer book src dst_type ] [
 title_parser: get_title_parser
 srcfile: to-rebol-file src
 doc: read/lines srcfile
@@ -66,7 +84,8 @@ content: copy []
 i: 1 
 foreach line doc [
     c: parse line title_parser
-    trim/tail line
+    replace/all line "　" " "
+    trim line
     if c [
     t_line: join "" ["- [" line "](#" i ")" newline]
     append toc t_line
@@ -81,8 +100,16 @@ md: join "" [ "#  " writer " 《" book "》" newline newline]
 append md toc
 append md content
 
-dstfile: to-rebol-file dst
-write dstfile md
+md_src: join "" [ writer "-" book ".md" ]
+md_file: to-rebol-file md_src
+write md_file md
+
+mobi_dst: join "" [ writer "-" book ".mobi" ]
+to_mobi: equal? dst_type "mobi"
+if to_mobi [
+    write_mobi writer book md_src mobi_dst
+]
+
 ]
 
 args: probe parse system/script/args none

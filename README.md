@@ -7,12 +7,12 @@ http://www.rebol.com/r3/downloads.html
 
 ## txt 转 markdown 
 
-``rebol dzs.reb "writer book a.txt a.md"``
+``rebol dzs.r3 "writer book /d/test/a.md md"``
 
-## markdown 转 mobi
+## txt 转 markdown 后再转 mobi
 
 需要安装[calibre](http://www.calibre-ebook.com/)
 
-``rebol dzs2mobi.reb "writer book a.md a.mobi"``
-
 windows下要把calibre的安装目录加入PATH环境变量
+
+``rebol dzs.r3 "writer book /d/test/a.md mobi"``
