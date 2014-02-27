@@ -7,7 +7,7 @@ http://www.rebol.com/r3/downloads.html
 
 ## txt 转 markdown 
 
-``rebol dzs.r3 writer book /d/test/a.md md``
+``r3 dzs.r3 writer book d:/test/a.md md``
 
 ## txt 转 markdown 后再转 mobi
 
@@ -15,4 +15,4 @@ http://www.rebol.com/r3/downloads.html
 
 windows下要把calibre的安装目录加入PATH环境变量
 
-``rebol dzs.r3 writer book /d/test/a.md mobi``
+``r3 dzs.r3 writer book d:/test/a.md mobi``

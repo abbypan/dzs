@@ -1,6 +1,7 @@
 Rebol [
 Title: "dzs"
 Author: "abbypan"
+Email: "abbypan@gmail.com"
 ]
 
 get_title_parser: func [] [
@@ -75,6 +76,12 @@ write_mobi: func [ writer book src dst ] [
     call cmd
 ]
 
+set_dzs_fname: func [ writer book src type ] [
+    set [dpath dsrc] split-path src
+    dst: join "" [ dpath writer "-" book "." type ]
+    return dst
+]
+
 write_dzs: func [ writer book src dst_type ] [
 title_parser: get_title_parser
 srcfile: to-rebol-file src
@@ -83,31 +90,31 @@ toc: copy []
 content: copy []
 i: 1 
 foreach line doc [
-    c: parse line title_parser
-    replace/all line "　" " "
-    trim line
-    if c [
-    t_line: join "" ["- [" line "](#" i ")" newline]
-    append toc t_line
-    line: join "" [ newline {<h1 id="} i {">} line {</h1>} newline ]
-    i: i + 1
-    ]
-    append line newline
-    append content line
+c: parse line title_parser
+replace/all line "　" " "
+trim line
+if c [
+t_line: join "" ["- [" line "](#" i ")" newline]
+append toc t_line
+line: join "" [ newline {<h1 id="} i {">} line {</h1>} newline ]
+i: i + 1
+]
+append line newline
+append content line
 ]
 
 md: join "" [ "#  " writer " 《" book "》" newline newline]
 append md toc
 append md content
 
-md_src: join "" [ writer "-" book ".md" ]
+md_src: set_dzs_fname writer book src "md"
 md_file: to-rebol-file md_src
 write md_file md
 
-mobi_dst: join "" [ writer "-" book ".mobi" ]
 to_mobi: equal? dst_type "mobi"
 if to_mobi [
-    write_mobi writer book md_src mobi_dst
+mobi_dst: set_dzs_fname writer book src "mobi"
+write_mobi writer book md_src mobi_dst
 ]
 
 ]
