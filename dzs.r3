@@ -30,7 +30,7 @@ head_n: [ "第" | "卷" | "CHAPTER" ]
 head_s: [ "内容简介" | "文案" | "序" |  "序言" | 
 "楔子" | "正文" | "终章" |"尾声" | "番外" | 
 "后记" ]
-head_main: [ 0 1 head_n seps digits | head_s seps any digits ]
+head_main: [ 0 1 head_n seps digits seps | head_s seps any digits ]
 
 tail_u: [ "章" | "节" | "卷" | "回" | "部" | "折" ]
 suffix: [ "上" | "中" | "下" ]
@@ -39,10 +39,10 @@ tail_n: [ some sep suffix | seps ]
 tail_main: [ tail_m tail_n ]
 
 ;chapter 1 xxxx
-title_cix: [ seps head_n seps digits some sep to end ]
+title_cix: [ seps 0 1 head_n seps digits some sep to end ]
 
 ;第1章 xxx , 第一章 （上）xxx
-title_cisx: [ seps head_main tail_main some sep to end ] 
+title_cisx: [ seps head_main 0 1 tail_main some sep to end ] 
 
 ;第1章
 title_cis: [ seps head_main tail_main end ] 
