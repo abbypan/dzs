@@ -4,8 +4,8 @@ Author: "abbypan"
 Email: "abbypan@gmail.com"
 ]
 
-do %r3-gui.r3
-;load-gui
+;do %r3-gui.r3
+load-gui
 
 days: system/locale/days
 dzs_types: [ "mobi" "md" "epub" ]
