@@ -22,3 +22,13 @@ windows下要把calibre的安装目录加入PATH环境变量
 - 转换成markdown: ``r3 dzs.r3 飘灯 风尘叹 d:/test/fct.txt md``
 - 转换成mobi: ``r3 dzs.r3 飘灯 风尘叹 d:/test/fct.txt mobi``
 - 转换成epub: ``r3 dzs.r3 飘灯 风尘叹 d:/test/fct.txt epub``
+
+## 图形界面
+
+txt文件名格式为：作者-书名.txt
+
+采用 [saphirion r3 gui](http://development.saphirion.com/downloads/)
+
+``r3-view dzs-gui.r3``
+
+![dzs-gui.png](dzs-gui.png)

@@ -73,7 +73,7 @@ return main_title
 
 write_mobi: func [ writer book src dst ] [
     cmd: reform ["ebook-convert" src dst "--authors" writer "--title" book]
-    call cmd
+    call/wait cmd
 ]
 
 set_dzs_fname: func [ writer book src type ] [
@@ -115,6 +115,7 @@ to_other: not-equal? dst_type "md"
 if to_other [
 mobi_dst: set_dzs_fname writer book src dst_type
 write_mobi writer book md_src mobi_dst
+delete md_file
 ]
 
 ]
