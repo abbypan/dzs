@@ -32,7 +32,7 @@ view [
 
    d: pick dzs_types get-face dst
 
-   cmd: reform [ "r3" "dzs.r3" w b s d ]
+   cmd: reform [ "r3" "dzs.reb" w b s d ]
    call cmd
    ]
 

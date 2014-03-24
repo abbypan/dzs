@@ -4,9 +4,11 @@ Author: "abbypan"
 Email: "abbypan@gmail.com"
 ]
 
+split_chapter_num: 100
+
 get_title_parser: func [] [
-spacer: charset reduce [tab    newline    #" "    "　"]
-not_spacer: complement spacer
+;spacer: charset reduce [tab    newline    #" "    "　"]
+spacer: charset reduce [tab #" " "　"]
 sep_not_spacer: charset reduce [ 
 "("   ")"   "["   "]"   
 "【"    "】"    "（"    "）"   
@@ -69,7 +71,9 @@ title_sx: [ sep_maybe head_s seps to end ]
 ;print parse "序言 xxx" title_sx
 ;print "==end title_sx=="
 
-title_xdx: [ some not_spacer to spacer sep_maybe digits sep_maybe to end ]
+not_spacer: complement spacer
+not_sep: complement union sep_with_spacer sep_not_spacer
+title_xdx: [ some not_spacer to spacer sep_maybe digits sep_maybe [ end | spacer any not_sep end] ]
 ;print parse "abc (12)" title_xdx
 ;print parse "abc [12] efg" title_xdx
 ;print "==end title_xdx=="
@@ -77,7 +81,7 @@ title_xdx: [ some not_spacer to spacer sep_maybe digits sep_maybe to end ]
 
 main_title: [ title_ds | title_ndx | title_ndtx | title_ndn | title_sx | title_xdx ]
 
-;test: "一、二、三"
+;test: "一样"
 ;print parse test title_ndx
 ;print parse test title_ndtx
 ;print parse test title_ndn
@@ -91,10 +95,93 @@ return main_title
 ;get_title_parser
 ;exit
 
+read_txt: func [ writer book src ] [
+title_parser: get_title_parser
+srcfile: to-rebol-file src
+doc: read/lines srcfile
 
-write_mobi: func [ writer book src dst ] [
-cmd: reform ["ebook-convert" src dst "--authors" writer "--title" book]
-call/wait cmd
+info: []
+
+toc: copy []
+content: copy []
+i: 0 
+foreach line doc [
+c: parse line title_parser
+replace/all line "　" " "
+trim line
+if c [
+
+m: mod i split_chapter_num
+flag: (m = 0) and (i >= split_chapter_num)
+if flag [
+segment: make object! [
+n: i
+t: copy toc
+c: copy content
+w: copy writer
+b: copy book
+]
+append info segment
+toc: copy []
+content: copy [] 
+]
+
+i: i + 1
+t_line: join "" ["- [" line "](#segment" i ")" newline]
+append toc t_line
+line: join "" [ newline {<h1 id="segment} i {">} line {</h1>} newline ]
+]
+append line newline
+append content line
+]
+
+segment: make object! [
+n: i
+t: copy toc
+c: copy content 
+w: copy writer
+b: copy book
+]
+append info segment
+return info
+]
+
+write_md: func [ r fname ] [
+md: join "" [ "#  " r/w " 《" r/b "》" newline newline ]
+append md r/t
+append md r/c
+md_file: to-rebol-file fname
+write md_file md
+return fname
+]
+
+txt_to_dzs: func [ writer book src dst_type] [
+info: read_txt writer book src
+num: length? info
+last_c: pick info num
+max_i: last_c/n
+foreach r info [
+b: copy book
+if num > 1 [
+j: format_num r/n max_i
+append b "-"
+append b j
+]
+md_src: set_dzs_fname writer b src "md"
+write_md r md_src
+
+md_file: to-rebol-file md_src
+write md_file md
+
+to_other: not-equal? dst_type "md"
+
+if to_other [
+dst_fname: set_dzs_fname writer b src dst_type
+md_to_dzs writer book md_src dst_fname
+delete md_file
+]
+
+]
 ]
 
 set_dzs_fname: func [ writer book src type ] [
@@ -103,47 +190,27 @@ dst: join "" [ dpath writer "-" book "." type ]
 return dst
 ]
 
-write_dzs: func [ writer book src dst_type ] [
-title_parser: get_title_parser
-srcfile: to-rebol-file src
-doc: read/lines srcfile
-toc: copy []
-content: copy []
-i: 1 
-foreach line doc [
-c: parse line title_parser
-replace/all line "　" " "
-trim line
-if c [
-t_line: join "" ["- [" line "](#segment" i ")" newline]
-append toc t_line
-line: join "" [ newline {<h1 id="segment} i {">} line {</h1>} newline ]
-i: i + 1
-]
-append line newline
-append content line
+md_to_dzs: func [ writer book src dst ] [
+cmd: reform ["ebook-convert" src dst "--authors" writer "--title" book]
+probe cmd
+call/wait cmd
 ]
 
-md: join "" [ "#  " writer " 《" book "》" newline newline]
-append md toc
-append md content
-
-md_src: set_dzs_fname writer book src "md"
-md_file: to-rebol-file md_src
-write md_file md
-
-to_other: not-equal? dst_type "md"
-if to_other [
-mobi_dst: set_dzs_fname writer book src dst_type
-write_mobi writer book md_src mobi_dst
-delete md_file
+format_num: func [ i n ] [
+c: round/ceiling log-10 (n + 1)
+ci: round/ceiling log-10 (i + 1)
+max: c - ci
+m: copy []
+if max > 0 [
+for x 1 max 1 [ append m "0" ]
+]
+append m i
+return join "" m
 ]
 
-]
-
-args: probe parse system/script/args none
+args: parse system/script/args none
 writer: args/1
 book: args/2
 src: args/3
 dst: args/4
-write_dzs writer book src dst
+txt_to_dzs writer book src dst
