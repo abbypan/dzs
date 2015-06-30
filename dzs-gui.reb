@@ -4,8 +4,10 @@ Author: "abbypan"
 Email: "abbypan@gmail.com"
 ]
 
-;do %r3-gui.r3
-load-gui
+do %r3-gui.r3
+;load-gui
+
+do %dzs.lib.reb
 
 days: system/locale/days
 dzs_types: [ "mobi" "md" "epub" ]
@@ -24,15 +26,13 @@ view [
    dst: drop-down dzs_types 
 
    button 220 "转换" on-action [
-   s: get-face txt
 
-   rs: to-rebol-file s
-   set [dpath dsrc] split-path rs
-   parse dsrc [ copy w to "-" skip copy b to "." ]
+   s: get-face txt
+   rs: to-relative-file s
 
    d: pick dzs_types get-face dst
 
-   cmd: reform [ "r3" "dzs.reb" w b s d ]
+   cmd: reform [ "r3" "dzs-single.reb" rs d ]
    call cmd
    ]
 
