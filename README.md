@@ -18,6 +18,8 @@ txt 转 电子书 ，自动生成章节目录。 多于100章的txt会自动拆�
 
 需要安装[calibre](http://www.calibre-ebook.com/)
 
+r3-view 、r3-gui.r3 来自 [saphirion.com](http://development.saphirion.com/downloads/)
+
 windows下需要把calibre的安装目录加入PATH环境变量，可以用 [rapidee](http://www.rapidee.com/en/about) 等软件添加环境变量
 
 # 用法
@@ -38,8 +40,6 @@ windows下直接双击``dzs_multi_mobi.bat``或``dzs_multi_epub.bat``可以查�
 
 ## dzs-gui.reb 图形界面
 
-r3-view 、r3-gui.r3 来自 [saphirion.com](http://development.saphirion.com/downloads/)
-
 usage: ``r3-view dzs-gui.reb``
 
 windows下直接双击 “dzs-gui.lnk” 即可打开图形界面
@@ -53,3 +53,9 @@ usage: ``r3 dzs.reb [作者名] [书名] [源文件.txt] [目标类型]``
 example: ``r3 dzs.reb 飘灯 风尘叹 d:\data\fct.txt mobi``
 
 ## dzs.lib.reb 基础库函数
+
+read_txt 读入txt
+
+write_dzs 转换txt
+
+single_dzs 处理默认txt
