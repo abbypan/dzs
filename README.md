@@ -10,7 +10,7 @@ txt 转 电子书 ，自动生成章节目录。 多于100章的txt会自动拆�
 
 默认转换的txt文件名格式为“作者-书名.txt”，内容为utf-8编码，见data目录
 
-[dzs-file-utf8.png](dzs-file-utf8.png)
+![dzs-file-utf8.png](dzs-file-utf8.png)
 
 # 安装
 
@@ -40,9 +40,9 @@ windows下直接双击``dzs_multi_mobi.bat``或``dzs_multi_epub.bat``可以查�
 
 r3-view 、r3-gui.r3 来自 [saphirion.com](http://development.saphirion.com/downloads/)
 
-windows下直接双击 “dzs-gui.lnk” 即可打开图形界面，截图见 [dzs-gui.png](dzs-gui.png)
+usage: ``r3-view dzs-gui.reb``
 
-``r3-view dzs-gui.reb``
+windows下直接双击 “dzs-gui.lnk” 即可打开图形界面
 
 ![dzs-gui.png](dzs-gui.png)
 
