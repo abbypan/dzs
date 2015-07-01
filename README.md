@@ -22,19 +22,29 @@ r3-view 、r3-gui.r3 来自 [saphirion.com](http://development.saphirion.com/dow
 
 windows下需要把calibre的安装目录加入PATH环境变量，可以用 [rapidee](http://www.rapidee.com/en/about) 等软件添加环境变量
 
+![dzs-path.png](dzs-path.png)
+
 # 用法
 
 ## dzs-single.reb 单txt转换
 
 usage: ``r3 dzs-single.reb [源文件.txt] [目标类型]``
 
-example: ``r3 dzs-single.reb d:\data\飘灯-风尘叹.txt mobi``
+example: 
+
+``r3 dzs-single.reb d:\data\飘灯-风尘叹.txt mobi``
+
+``r3 dzs-single.reb /d/data/飘灯-风尘叹.txt mobi``
 
 ## dzs-multi.reb 转换指定目录下的所有txt
 
 usage: ``r3 dzs-multi.reb [txt目录] [目标类型]``
 
-example: ``r3 dzs-multi.reb d:\data mobi``
+example: 
+
+``r3 dzs-multi.reb d:\data mobi``
+
+``r3 dzs-multi.reb /d/data mobi``
 
 windows下直接双击``dzs_multi_mobi.bat``或``dzs_multi_epub.bat``可以查看data目录下批量转换txt效果
 
@@ -50,7 +60,11 @@ windows下直接双击 “dzs-gui.lnk” 即可打开图形界面
 
 usage: ``r3 dzs.reb [作者名] [书名] [源文件.txt] [目标类型]``
 
-example: ``r3 dzs.reb 飘灯 风尘叹 d:\data\fct.txt mobi``
+example: 
+
+``r3 dzs.reb 飘灯 风尘叹 d:\data\fct.txt mobi``
+
+``r3 dzs.reb 飘灯 风尘叹 /d/data/fct.txt mobi``
 
 ## dzs.lib.reb 基础库函数
 
