@@ -8,9 +8,9 @@ txt 转 电子书 ，自动生成章节目录。 多于300章的txt会自动拆�
 
 # txt 文件要求
 
-默认转换的txt文件名格式为“作者-书名.txt”，内容为utf-8编码，见data目录
+默认转换的txt文件名格式为“作者-书名.txt”，内容为utf-8编码，见[data](../data)目录
 
-![dzs-file-utf8.png](data/dzs-file-utf8.png)
+![dzs-file-utf8.png](../data/dzs-file-utf8.png)
 
 # 安装
 
@@ -22,7 +22,7 @@ r3-view 、r3-gui.r3 来自 [saphirion.com](http://development.saphirion.com/dow
 
 windows下需要把calibre的安装目录加入PATH环境变量，可以用 [rapidee](http://www.rapidee.com/en/about) 等软件添加环境变量
 
-![dzs-path.png](data/dzs-path.png)
+![dzs-path.png](../data/dzs-path.png)
 
 # 用法
 
@@ -54,7 +54,7 @@ usage: ``r3-view dzs-gui.reb``
 
 windows下直接双击 “dzs-gui.lnk” 即可打开图形界面
 
-![dzs-gui.png](data/dzs-gui.png)
+![dzs-gui.png](../data/dzs-gui.png)
 
 ## dzs.reb 基础转换工具
 
