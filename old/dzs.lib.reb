@@ -4,7 +4,7 @@ Author: "abbypan"
 Email: "abbypan@gmail.com"
 ]
 
-split_chapter_num: 100
+split_chapter_num: 300
 
 get_title_parser: func [] [
 ;spacer: charset reduce [tab    newline    #" "    "　"]
