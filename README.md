@@ -10,6 +10,14 @@ txt 转 电子书 ，自动生成章节目录。 多于2000章的txt会自动拆
 
 支持转换的目标类型有 md、mobi、epub、pdf 等等，详细列表见:[ebook-convert-help](http://manual.calibre-ebook.com/cli/ebook-convert.html#ebook-convert)
 
+# usage 用法
+
+    r3 dzs.reb [writer-book.txt] [dst_ebook_type]
+    r3 dzs.reb \"飘灯-风尘叹.txt\" mobi
+
+    r3 dzs.reb [writer] [book] [txt_file] [dst_ebook_type]
+    r3 dzs.reb 飘灯 风尘叹 fct.txt mobi
+
 # txt 文件要求
 
 example in [data/](data/) directory, 示例文件在[data/](data/)目录下
@@ -19,14 +27,6 @@ txt file charset : utf-8
 txt文件内容为utf-8编码
 
 ![dzs-file-utf8.png](data/dzs-file-utf8.png)
-
-# usage 用法
-
-    r3 dzs.reb [writer-book.txt] [dst_ebook_type]
-    r3 dzs.reb \"飘灯-风尘叹.txt\" mobi
-
-    r3 dzs.reb [writer] [book] [txt_file] [dst_ebook_type]
-    r3 dzs.reb 飘灯 风尘叹 fct.txt mobi
 
 # install 安装
 
