@@ -1,6 +1,6 @@
 # dzs: txt to ebook  电子书转换
 
-txt to ebook, auto add index, use calibre's ebook-convert tool to generate mobi/epub/pdf...
+txt to ebook, auto add index, use [calibre](http://www.calibre-ebook.com/)'s [ebook-convert](http://manual.calibre-ebook.com/cli/ebook-convert.html#ebook-convert) tool to generate mobi/epub/pdf...
 
 max chapter number of each ebook is 2000.
 
