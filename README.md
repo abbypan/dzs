@@ -32,6 +32,8 @@ txt文件内容为utf-8编码
 
 [calibre](http://www.calibre-ebook.com/)
 
-windows : add calibre directory to PATH env, 把calibre的安装目录加入PATH环境变量，可以用 [rapidee](http://www.rapidee.com/en/about) 等软件添加环境变量
+windows : add calibre directory to PATH environment variable
+
+把calibre的安装目录加入PATH环境变量，可以用 [rapidee](http://www.rapidee.com/en/about) 等软件添加
 
 ![dzs-path.png](data/dzs-path.png)
