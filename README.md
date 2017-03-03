@@ -26,8 +26,6 @@ txt file charset : utf-8
 
 txt文件内容为utf-8编码
 
-![dzs-file-utf8.png](data/dzs-file-utf8.png)
-
 # install 安装
 
 [rebol](http://www.rebol.com/r3/downloads.html)
