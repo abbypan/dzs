@@ -4,8 +4,6 @@ Author: "abbypan"
 Email: "abbypan@gmail.com"
 ]
 
-split_chapter_num: 2000
-
 get_title_parser: func [] [
 ;spacer: charset reduce [tab    newline    #" "    "　"]
 spacer: charset reduce [tab #" " "　"]
@@ -100,8 +98,6 @@ title_parser: get_title_parser
 srcfile: to-rebol-file src
 doc: read/lines srcfile
 
-info: []
-
 toc: copy []
 content: copy []
 i: 0 
@@ -110,22 +106,6 @@ c: parse line title_parser
 replace/all line "　" " "
 trim line
 if c [
-
-m: mod i split_chapter_num
-flag: (m = 0) and (i >= split_chapter_num)
-if flag [
-segment: make object! [
-n: i
-t: copy toc
-c: copy content
-w: copy writer
-b: copy book
-]
-append info segment
-toc: copy []
-content: copy [] 
-]
-
 i: i + 1
 t_line: join "" ["- [" line "](#segment" i ")" newline]
 append toc t_line
@@ -142,8 +122,7 @@ c: copy content
 w: copy writer
 b: copy book
 ]
-append info segment
-return info
+return segment
 ]
 
 write_md: func [ r fname ] [
@@ -155,20 +134,12 @@ write md_file md
 return fname
 ]
 
-write_dzs: func [ writer book src dst_type] [
+write_dzs: func [ writer book src dst_type ] [
 info: read_txt writer book src
-num: length? info
-last_c: pick info num
-max_i: last_c/n
-foreach r info [
+num:  info/n
 b: copy book
-if num > 1 [
-j: format_num r/n max_i
-append b "-"
-append b j
-]
 md_src: set_dzs_fname writer b src "md"
-write_md r md_src
+write_md info md_src
 
 md_file: to-rebol-file md_src
 write md_file md
@@ -181,7 +152,6 @@ md_to_dzs writer book md_src dst_fname
 delete md_file
 ]
 
-]
 ]
 
 set_dzs_fname: func [ writer book src type ] [
@@ -210,17 +180,14 @@ append m i
 return join "" m
 ]
 
-single_dzs: func [ f type ] [
-            set [fpath fname] split-path to-rebol-file f
-            parse fname [ copy fwriter to "-" ]
-            parse fname [ thru "-"  copy fbook to ".txt" ]
-            write_dzs fwriter fbook f type
-]
-
+;main
 args: parse system/script/args none
 num: length? args
-either num == 2 [
-single_dzs args/1 args/2
-] [
+either num == 4 [
 write_dzs args/1 args/2 args/3 args/4
+] [
+set [fpath fname] split-path to-rebol-file args/1
+parse fname [ copy fwriter to "-" ]
+parse fname [ thru "-"  copy fbook to ".txt" ]
+write_dzs fwriter fbook args/1 args/2
 ]

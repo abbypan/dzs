@@ -1,39 +1,31 @@
 # dzs: txt to ebook  电子书转换
 
-txt to ebook, auto add index, use [calibre](http://www.calibre-ebook.com/)'s [ebook-convert](http://manual.calibre-ebook.com/cli/ebook-convert.html#ebook-convert) tool to generate mobi/epub/pdf...
-
-max chapter number of each ebook is 2000.
-
-txt 转 电子书 ，自动生成章节目录。 多于2000章的txt会自动拆分成多个电子书，每个电子书不超过2000章。
-
-调用[calibre](http://www.calibre-ebook.com/)的ebook-convert工具生成电子书。
+txt 转 电子书 ，自动生成章节目录，调用[calibre](http://www.calibre-ebook.com/)的[ebook-convert](http://manual.calibre-ebook.com/cli/ebook-convert.html#ebook-convert)工具生成电子书。
 
 支持转换的目标类型有 md、mobi、epub、pdf 等等，详细列表见:[ebook-convert-help](http://manual.calibre-ebook.com/cli/ebook-convert.html#ebook-convert)
 
-# usage 用法
-
-    r3 dzs.reb [writer-book.txt] [dst_ebook_type]
-    r3 dzs.reb \"飘灯-风尘叹.txt\" mobi
+# usage
 
     r3 dzs.reb [writer] [book] [txt_file] [dst_ebook_type]
     r3 dzs.reb 飘灯 风尘叹 fct.txt mobi
 
-# txt 文件要求
+    r3 dzs.reb [writer-book.txt] [dst_ebook_type]
+    r3 dzs.reb \"作者-书名.txt\" mobi
 
-example in [data/](data/) directory, 示例文件在[data/](data/)目录下
+# example
 
-txt file charset : utf-8
+示例文件在[data/](data/)目录下
 
 txt文件内容为utf-8编码
 
-# install 安装
+![dzs-file-utf8.png](dzs-file-utf8.png)
 
-[rebol](http://www.rebol.com/r3/downloads.html)
+# windows环境安装说明
 
-[calibre](http://www.calibre-ebook.com/)
+将 [r3.exe](http://www.rebol.com/r3/downloads.html) 放在 dzs.reb 相同目录下
 
-windows : add calibre directory to PATH environment variable
+将 [calibre](http://www.calibre-ebook.com/) 的安装目录加入PATH环境变量，可以用 [rapidee](http://www.rapidee.com/en/about) 等软件添加
 
-把calibre的安装目录加入PATH环境变量，可以用 [rapidee](http://www.rapidee.com/en/about) 等软件添加
+![dzs-path.png](dzs-path.png)
 
-![dzs-path.png](data/dzs-path.png)
+双击 sample_txt2ebook.bat 执行电子书转换测试
