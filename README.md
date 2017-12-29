@@ -24,8 +24,10 @@ txt文件内容为utf-8编码
 
 将 [r3.exe](http://www.rebol.com/r3/downloads.html) 放在 dzs.reb 相同目录下
 
-将 [calibre](http://www.calibre-ebook.com/) 的安装目录加入PATH环境变量，可以用 [rapidee](http://www.rapidee.com/en/about) 等软件添加
+在 [calibre](http://www.calibre-ebook.com/) 的安装目录下找到 ebook-convert.exe 所在的子目录，将该子目录加入PATH环境变量。
+
+可以用 [rapidee](http://www.rapidee.com/en/about) 等软件添加环境变量。
 
 ![dzs-path.png](dzs-path.png)
 
-双击 sample_txt2ebook.bat 执行电子书转换测试
+双击 sample_txt2ebook.bat 执行电子书转换测试，日志写入dzs.log
