@@ -1,0 +1,2 @@
+{ebook-convert data\作者-书名.md data\作者-书名.mobi --authors 作者 --title 书名}
+{ebook-convert data\飘灯-风尘叹.md data\飘灯-风尘叹.pdf --authors 飘灯 --title 风尘叹}
